@@ -1,7 +1,5 @@
-export default function Recipes() {
-  return (
-    <div className="recipe-list">
-      Recipe List
-    </div>
-  )
-}
+const HomePage = () => {
+  return <div>Home Page</div>;
+};
+
+export default HomePage;

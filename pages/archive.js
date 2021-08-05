@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { createClient } from "contentful";
@@ -24,7 +25,13 @@ const Archive = ({ articles }) => {
   return (
     <div>
       {articles.map((article) => (
-        <div key={article.sys.id}>{article.fields.title}</div>
+        <Link
+          key={article.sys.id}
+          href="/articles/[id].js"
+          as={`/articles/${article.fields.slug}`}
+        >
+          {article.fields.title}
+        </Link>
       ))}
     </div>
   );

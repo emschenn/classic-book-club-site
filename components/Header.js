@@ -70,7 +70,9 @@ const Categories = ({ categories }) => (
     </svg>
     <ul className={styles.cat}>
       {categories.map((i) => (
-        <li className={styles.catLi}>{i}</li>
+        <li key={i} className={styles.catLi}>
+          {i}
+        </li>
       ))}
     </ul>
   </div>
@@ -80,7 +82,7 @@ const Header = ({ currentRoute }) => {
   const router = useRouter();
   const routes = [
     { route: "/about", name: "about" },
-    { route: "/archive", name: "épistémè" },
+    { route: "/articles", name: "épistémè" },
     { route: "/contact", name: "contact" },
   ];
 
@@ -101,16 +103,19 @@ const Header = ({ currentRoute }) => {
         </div>
         {routes.map(({ route, name }) => (
           <li
+            key={name}
             onClick={() => router.push(route)}
             className={`${styles.navLi} ${
-              route === currentRoute ? styles.focus : undefined
+              currentRoute.includes(route) ? styles.focus : undefined
             }`}
           >
             {name}
             <span className={styles.underline}></span>
           </li>
         ))}
-        {currentRoute === "/archive" && <Categories categories={categories} />}{" "}
+        {currentRoute.includes("/articles") && (
+          <Categories categories={categories} />
+        )}{" "}
       </ul>
       <ul className={styles.rightNav}>
         <li className={styles.search}>

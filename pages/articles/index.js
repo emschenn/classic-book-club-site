@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { createClient } from "contentful";
-// import styles from "../styles/Archive.module.scss";
+import styles from "../../styles/Archive.module.scss";
 
 export async function getStaticProps() {
   // const client = createClient({

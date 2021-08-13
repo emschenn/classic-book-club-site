@@ -1,12 +1,17 @@
-import '../styles/globals.css'
-import Layout from '../components/Layout'
+import "../styles/globals.scss";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, router }) {
   return (
-    <Layout>
+    // <Layout>
+    <>
+      <Header currentRoute={router.pathname} />
       <Component {...pageProps} />
-    </Layout>
-  )
+      <Footer />
+    </>
+    // </Layout>
+  );
 }
 
-export default MyApp
+export default MyApp;

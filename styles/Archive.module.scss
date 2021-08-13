@@ -1,0 +1,95 @@
+.sortBy {
+  display: flex;
+  font-family: Poppins;
+  font-style: normal;
+  font-weight: 100;
+  font-size: 1.4rem;
+  line-height: 4rem;
+  label {
+    flex: 2;
+    position: relative;
+    text-align: right;
+    padding-right: 1.4rem;
+    &::after {
+      content: "";
+      position: absolute;
+      width: 1px;
+      height: 100%;
+      right: 0;
+      top: 0;
+      border-right: 1px solid #000;
+      transform: scaleX(0.5);
+    }
+  }
+  .sort {
+    flex: 10;
+    padding-left: 2rem;
+    svg {
+      padding-left: 1rem;
+    }
+  }
+}
+
+.bookcase {
+  height: calc(85vh - #{$header-height} - #{$header-margin-top});
+  position: relative;
+  width: auto;
+  display: flex;
+  justify-content: flex-end;
+  //background-color: #f0f0f0;
+  &::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    left: 0;
+    top: 0;
+    border-top: 1px solid #000;
+    transform: scaleY(0.5);
+  }
+  &::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    left: 0;
+    bottom: 0;
+    border-bottom: 1px solid #000;
+    transform: scaleY(0.5);
+  }
+  .book {
+    //background-color: #fff;
+    position: relative;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    font-family: "Yahei";
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.4rem;
+    text-orientation: upright;
+    writing-mode: vertical-lr;
+    line-height: 3rem;
+    &::before {
+      content: "";
+      position: absolute;
+      width: 1px;
+      height: 100%;
+      left: 0;
+      top: 0;
+      border-left: 1px solid #d6d6d6;
+      transform: scaleX(0.5);
+    }
+    &:last-of-type {
+      &::after {
+        content: "";
+        position: absolute;
+        width: 1px;
+        height: 100%;
+        right: 0;
+        top: 0;
+        border-right: 1px solid #d6d6d6;
+        transform: scaleX(0.5);
+      }
+    }
+  }
+}

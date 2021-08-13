@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import "include-media";
+@import "reset-css";
+
+// 'phone': 320px,
+// 'tablet': 768px,
+// 'desktop': 1024px
+@font-face {
+  font-family: "Yahei"; /*a name to be used later*/
+  src: url("../font/MicrosoftYahei.ttf");
+  //src: url("../font/MicrosoftYaheiB.ttf");
+}
+
+@font-face {
+  font-family: "Yu Gothic UI"; /*a name to be used later*/
+  font-weight: 300;
+  src: url("../font/YuGothL.ttf");
+}
+
+@font-face {
+  font-family: "Yu Gothic UI"; /*a name to be used later*/
+  font-weight: 400;
+  src: url("../font/YuGothSL.ttf");
+}
+
+@font-face {
+  font-family: "Yu Gothic UI"; /*a name to be used later*/
+  font-weight: 500;
+  src: url("../font/YuGothR.ttf");
+}
+
+@font-face {
+  font-family: "Yu Gothic UI"; /*a name to be used later*/
+  font-weight: 600;
+  src: url("../font/YuGothSB.ttf");
+}
+
+body {
+  background: #fff;
+  margin: 0 48px;
+  font-family: "Roboto";
+  font-size: 24px;
+  @include media(">phone", "<=tablet") {
+    // background-color: aqua;
+  }
+}
+
+ul,
+li {
+  list-style: none;
+}

@@ -34,10 +34,23 @@ const Article = () => {
   return (
     <div className={styles.article}>
       <section className={styles.category}>
-        <p>
+        {/* <div className={styles.outline}>
           Human- <br />
           ities
-        </p>
+        </div>
+        <div className={styles.text}>
+          Human- <br />
+          ities
+        </div> */}
+        <div className={`${styles.mydiv} ${styles.outline}`}>
+          Human- <br />
+          ities
+        </div>
+        <div className={`${styles.mydiv} ${styles.text}`}>
+          Human- <br />
+          ities
+        </div>
+        <span className={styles.scrollProgress}></span>
       </section>
 
       <section className={styles.body}>
@@ -102,9 +115,46 @@ const Article = () => {
               objectFit="contain"
             />
           </div>
-          <div className={styles.card}></div>
+          <div
+            className={`${isCardOpen ? styles.swipeOut : styles.swipeIn} ${
+              styles.card
+            }`}
+          >
+            <div className={styles.body}>
+              <div className={styles.intro}>
+                羅馬離我們有多遙遠？
+                <br />
+                <br />
+                知名歷史學者瑪莉‧畢爾德告訴我們：羅馬其實離我們很近，近得讓人訝異。
+                羅馬人雖然已逝，但留給我們許多影響現代社會的概念，包括自由、公民、帝國的剝削，還有一整套現代政治的語言....。
+              </div>
+              <div className={styles.hashtag}>#fff</div>
+            </div>
+            <div className={styles.slider}>
+              <svg
+                width="49"
+                height="49"
+                viewBox="0 0 49 49"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                onClick={() => setCardOpen(!isCardOpen)}
+                className={
+                  isCardOpen
+                    ? styles.svgSwipeOut
+                    : `${styles.toggleSwipe} ${styles.svgSwipeIn}`
+                }
+              >
+                <path
+                  d="M48.5 24.5C48.5 37.7548 37.7548 48.5 24.5 48.5C11.2452 48.5 0.5 37.7548 0.5 24.5C0.5 11.2452 11.2452 0.5 24.5 0.5C37.7548 0.5 48.5 11.2452 48.5 24.5Z"
+                  stroke="white"
+                />
+                <path d="M26 17L37 26L26 35" stroke="white" />
+                <path d="M14 26H36.5" stroke="white" />
+              </svg>
+            </div>
+          </div>
         </section>
-        <section className={styles.share}>d</section>
+        <section className={styles.share}>share</section>
         <section className={styles.note}>
           <div className={styles.tag}>Meeting minutes</div>
           <div className={styles.detail}>

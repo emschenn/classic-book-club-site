@@ -7,24 +7,63 @@
 
     .category {
       display: grid;
-      p {
-        -webkit-appearance: none;
+      position: relative;
+      background-color: yellow;
 
+      // div {
+      //   -webkit-appearance: none;
+      //   writing-mode: vertical-rl;
+      //   text-orientation: mixed;
+      //   font-family: "YaHei";
+      //   font-style: normal;
+      //   font-weight: bold;
+      //   font-size: 7rem;
+      //   line-height: 7.7rem;
+      //   background-color: #fff;
+      // }
+      // .outline {
+      //   position: absolute;
+      //   color: #fff;
+      //   text-shadow: -0.4px -0.4px 0 #000, 0.4px -0.4px 0 #000,
+      //     -0.4px 0.4px 0 #000, 0.4px 0.4px 0 #000;
+      //
+      // }
+      .mydiv {
+        // position: absolute;
+        // top: 0;
+        -webkit-appearance: none;
         writing-mode: vertical-rl;
         text-orientation: mixed;
-        color: #fff;
         font-family: "YaHei";
         font-style: normal;
         font-weight: bold;
         font-size: 7rem;
         line-height: 7.7rem;
+        background-color: #fff;
+      }
+
+      .outline {
+        color: #fff;
         text-shadow: -0.4px -0.4px 0 #000, 0.4px -0.4px 0 #000,
           -0.4px 0.4px 0 #000, 0.4px 0.4px 0 #000;
         @media not all and (min-resolution: 0.001dpcm) {
           @supports (-webkit-appearance: none) {
             text-shadow: 0 0 1.5px black;
+            //-webkit-text-stroke: 1px #000;
           }
         }
+      }
+      .text {
+        position: absolute;
+        -webkit-text-fill-color: transparent;
+        -webkit-background-clip: text;
+      }
+
+      .scrollProgress {
+        position: absolute;
+        inset: 0;
+        background-color: red;
+        z-index: -1;
       }
     }
     .body {
@@ -195,6 +234,8 @@
         grid-area: book;
         background-color: rgb(50, 50, 80);
         height: 320px;
+        position: relative;
+        overflow: hidden;
         .img {
           position: relative;
           height: 100%;
@@ -212,12 +253,112 @@
             );
           }
         }
+        .swipeOut {
+          animation: swipeOut 1s forwards;
+        }
+        .swipeIn {
+          animation: swipeIn 1s forwards;
+        }
         .card {
+          position: absolute;
+          display: flex;
+          justify-content: space-between;
+          top: 0;
+          bottom: 0;
+          width: 100%;
+          height: auto;
+          @keyframes toggleSwipe {
+            0% {
+              right: calc(100% - 80px);
+            }
+
+            100% {
+              right: 100px;
+            }
+          }
+          @keyframes swipeOut {
+            0% {
+              right: calc(100% - 80px);
+              background-color: linear-gradient(
+                90deg,
+                rgba(0, 0, 0, 0.32) -16.3%,
+                rgba(0, 0, 0, 0.127333) 81.59%,
+                rgba(0, 0, 0, 0) 100%
+              );
+            }
+            100% {
+              right: 0px;
+              background-color: rgba(0, 0, 0, 0.32);
+            }
+          }
+          @keyframes swipeIn {
+            0% {
+              right: 0px;
+              background-color: rgba(0, 0, 0, 0.32);
+            }
+            100% {
+              right: calc(100% - 80px);
+              background-color: linear-gradient(
+                90deg,
+                rgba(0, 0, 0, 0.32) -16.3%,
+                rgba(0, 0, 0, 0.127333) 81.59%,
+                rgba(0, 0, 0, 0) 100%
+              );
+            }
+          }
+          .body {
+            flex: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-family: Yu Gothic UI;
+            font-weight: 300;
+            line-height: 1.6rem;
+            font-size: 1.2rem;
+            height: auto;
+            color: #fff;
+            padding: 2rem 0.6rem 1.6rem 1.4rem;
+            .intro {
+            }
+          }
+          .slider {
+            flex: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            svg {
+              &.svgSwipeOut {
+                animation: svgSwipeOut 1s forwards;
+              }
+              &.svgSwipeIn {
+                animation: svgSwipeIn 1s forwards;
+              }
+              @keyframes svgSwipeOut {
+                0% {
+                  transform: rotate(0deg);
+                }
+                100% {
+                  transform: rotate(180deg);
+                }
+              }
+              @keyframes svgSwipeIn {
+                0% {
+                  transform: rotate(-180deg);
+                }
+                100% {
+                  transform: rotate(0deg);
+                }
+              }
+            }
+          }
         }
       }
       .share {
         grid-area: share;
-        background-color: lightblue;
+        // background-color: lightblue;
+        display: flex;
+        justify-content: flex-end;
       }
       .note {
         margin-top: 1.5rem;

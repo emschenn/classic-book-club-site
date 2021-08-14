@@ -101,21 +101,23 @@ const Header = ({ currentRoute }) => {
         <div className={styles.logo} onClick={() => router.push("/")}>
           LOGO
         </div>
-        {routes.map(({ route, name }) => (
-          <li
-            key={name}
-            onClick={() => router.push(route)}
-            className={`${styles.navLi} ${
-              currentRoute.includes(route) ? styles.focus : undefined
-            }`}
-          >
-            {name}
-            <span className={styles.underline}></span>
-          </li>
+        {routes.map(({ route, name }, index) => (
+          <>
+            {index !== 0 && <span></span>}
+            <li
+              key={name}
+              onClick={() => router.push(route)}
+              className={`${styles.navLi} ${
+                currentRoute.includes(route) ? styles.focus : undefined
+              }`}
+            >
+              {name}
+            </li>
+          </>
         ))}
         {currentRoute.includes("/articles") && (
           <Categories categories={categories} />
-        )}{" "}
+        )}
       </ul>
       <ul className={styles.rightNav}>
         <li className={styles.search}>

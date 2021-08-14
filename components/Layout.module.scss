@@ -22,6 +22,14 @@
     display: flex;
     font-size: 1.6rem;
     align-items: center;
+    span {
+      display: inline-block;
+      margin: 4px 1rem;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background-color: #000;
+    }
     .navLi {
       font-family: "Poppins", sans-serif;
       font-weight: 100;
@@ -30,33 +38,36 @@
       &:first-of-type {
         margin-left: 2.2rem;
       }
-      &:not(:last-of-type) {
-        &::after {
-          content: "";
-          display: inline-block;
-          margin: 4px 1rem;
-          width: 5px;
-          height: 5px;
-          border-radius: 50%;
-          background-color: #000;
-        }
-      }
       &.focus {
-        font-weight: 500;
         font-style: italic;
       }
-      &:hover {
+      &:hover,
+      &.focus {
         font-weight: 500;
+        position: relative;
+        &::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 1px;
+          left: 0;
+          bottom: -0.5rem;
+          border-bottom: 1px solid #000;
+          transform: scaleY(0.5);
+        }
       }
-
-      // .underline {
-      //   position: absolute;
-      //   width: calc(100% - 1.5rem);
-      //   height: 1px;
-      //   bottom: -0.3rem;
-      //   left: 0;
-      //   transform: scaleY(0.5);
-      //   background-color: #000;
+      // &:hover {
+      //   &::after {
+      //     animation: animation 0.5s forwards;
+      //     @keyframes animation {
+      //       0% {
+      //         width: 0%;
+      //       }
+      //       100% {
+      //         width: 100%;
+      //       }
+      //     }
+      //   }
       // }
     }
 

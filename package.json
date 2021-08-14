@@ -10,6 +10,7 @@
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.0.0",
     "contentful": "^8.4.2",
+    "gsap": "^3.7.1",
     "include-media": "^1.4.10",
     "next": "10.0.8",
     "next-images": "^1.8.1",

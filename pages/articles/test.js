@@ -1,11 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import gsap from "gsap";
 import Image from "next/image";
 // import img from "../../public/test.png";
+
+import Footer from "../../components/Footer";
 
 import styles from "../../styles/Article.module.scss";
 
 const Article = () => {
-  const [isCardOpen, setCardOpen] = useState(false);
+  const [isCardOpen, setCardOpen] = useState(null)
+  const cardRef = useRef(null)
+  const cardButtonRef  = useRef(null)
+
+  useEffect(()=>{
+    // gsap.from(cardRef.current, {suration: 1, autoAlpha: 0, ease: 'none', delay: 1})
+    if(isCardOpen === null){    
+      gsap.to(cardRef.current,  2, {x:10, ease:'back.inOut(1.7)',repeat:-1,yoyo:true});
+    }  
+  },[])
+
+  
+  useEffect(()=>{
+    if(isCardOpen){
+      gsap.to(cardRef.current,  2, {x:300, ease:'power3.inOut'});
+    }
+    else{
+      gsap.to(cardRef.current,  2, {x:-300, ease:'power2.inOut'});
+    }
+
+  },[isCardOpen])
+
   const article = {
     title: "SPQR：璀璨帝國，盛世羅馬元老院與人民的榮光古史",
     author: "瑪莉‧畢爾德",
@@ -116,9 +140,11 @@ const Article = () => {
             />
           </div>
           <div
-            className={`${isCardOpen ? styles.swipeOut : styles.swipeIn} ${
-              styles.card
-            }`}
+            ref={cardRef}
+            className={styles.card}
+            // className={`${isCardOpen ? styles.swipeOut : styles.swipeIn} ${
+            //   styles.card
+            // }`}
           >
             <div className={styles.body}>
               <div className={styles.intro}>
@@ -138,11 +164,12 @@ const Article = () => {
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
                 onClick={() => setCardOpen(!isCardOpen)}
-                className={
-                  isCardOpen
-                    ? styles.svgSwipeOut
-                    : `${styles.toggleSwipe} ${styles.svgSwipeIn}`
-                }
+                ref={cardButtonRef}
+            //     className={
+            //       isCardOpen
+            //         ? styles.svgSwipeOut
+            //         :    `${styles.toggleSwipe} ${styles.svgSwipeIn}`
+            //     }
               >
                 <path
                   d="M48.5 24.5C48.5 37.7548 37.7548 48.5 24.5 48.5C11.2452 48.5 0.5 37.7548 0.5 24.5C0.5 11.2452 11.2452 0.5 24.5 0.5C37.7548 0.5 48.5 11.2452 48.5 24.5Z"

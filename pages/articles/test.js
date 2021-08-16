@@ -8,27 +8,65 @@ import Footer from "../../components/Footer";
 import styles from "../../styles/Article.module.scss";
 
 const Article = () => {
-  const [isCardOpen, setCardOpen] = useState(null)
-  const cardRef = useRef(null)
-  const cardButtonRef  = useRef(null)
+  const [isCardOpen, setCardOpen] = useState(null);
+  const [progress, setProgress] = useState(0);
+  const cardRef = useRef(null);
+  const cardButtonRef = useRef(null);
+  const progressBarRef = useRef(null);
 
-  useEffect(()=>{
-    // gsap.from(cardRef.current, {suration: 1, autoAlpha: 0, ease: 'none', delay: 1})
-    if(isCardOpen === null){    
-      gsap.to(cardRef.current,  2, {x:10, ease:'back.inOut(1.7)',repeat:-1,yoyo:true});
-    }  
-  },[])
+  useEffect(() => {
+    // if (isCardOpen === null) {
+    //   gsap.to(cardRef.current, 0.6, {
+    //     x: 10,
+    //     ease: "back.inOut(1.7)",
+    //     repeat: -1,
+    //     yoyo: true,
+    //   });
+    // }
+  }, []);
 
-  
-  useEffect(()=>{
-    if(isCardOpen){
-      gsap.to(cardRef.current,  2, {x:300, ease:'power3.inOut'});
+  const progressBarHandler = (e) => {
+    const totalScroll = e.target.scrollTop;
+    const windowHeight = e.target.scrollHeight - e.target.clientHeight;
+    const scroll = `${(totalScroll / windowHeight).toFixed(2) * 100}%`;
+    setProgress(scroll);
+  };
+
+  useEffect(() => {
+    gsap.to(progressBarRef.current, 0.001, {
+      ease: "power3.inOut",
+      background: `linear-gradient(to top, #000000 ${progress}, #00000000 ${progress})`,
+    });
+  }, [progress]);
+
+  useEffect(() => {
+    const width = cardRef.current.offsetWidth;
+    if (isCardOpen) {
+      gsap.to(cardRef.current, 2, {
+        x: width - 70,
+        ease: "power3.inOut",
+        background:
+          "linear-gradient( 90deg, rgba(0, 0, 0, 0.32) 85%, rgba(0, 0, 0, 0.32) 100% )",
+      });
+      gsap.to(cardButtonRef.current, 1, {
+        delay: 0.5,
+        rotation: 180,
+        ease: "power3.inOut",
+      });
+    } else if (isCardOpen === false) {
+      gsap.to(cardRef.current, 2, {
+        x: 0,
+        ease: "power3.inOut",
+        background:
+          "linear-gradient( 90deg, rgba(0, 0, 0, 0.32) 85%, rgba(0, 0, 0, 0) 100% )",
+      });
+      gsap.to(cardButtonRef.current, 1, {
+        delay: 0.5,
+        rotation: 0,
+        ease: "power3.inOut",
+      });
     }
-    else{
-      gsap.to(cardRef.current,  2, {x:-300, ease:'power2.inOut'});
-    }
-
-  },[isCardOpen])
+  }, [isCardOpen]);
 
   const article = {
     title: "SPQR：璀璨帝國，盛世羅馬元老院與人民的榮光古史",
@@ -39,7 +77,11 @@ const Article = () => {
     hashtag: ["hello", "fssd"],
     region: "歐洲 > 西歐 > 英國",
     content:
-      "書中提到參選執政官需要花費大筆金錢，甚至到了難以與行賄區分的程度。思及目前台灣的選舉，同樣也需要選舉金費的支撐，除了發杯子、衛生紙、口罩等像是給民眾利益但實際上也不算有很大幫助的方式，選舉金費該怎麼花才會讓民眾有感但又不至於讓人覺得雞肋？",
+      "書中提到參選執政官需要花費大筆金錢，甚至到了難以與行賄區分的程度。思及目前台灣的選舉，同樣也需要選舉金費的支撐，除了發杯子、衛生紙、口罩等像是給民眾利益但實際上也不算有很大幫助的方式，選舉金費該怎麼花才會讓民眾有感但又不至於讓人覺得雞肋？" +
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni fugiat at quas exercitationem saepe quibusdam eius veritatis quis eveniet nam quo, aliquid illo inventore voluptatibus mollitia optio dolor et! Nesciunt accusantium, beatae nobis molestias sapiente assumenda deleniti enim debitis? Rem, suscipit? Alias reiciendis quisquam excepturi nesciunt quia veritatis amet a quam autem facilis, asperiores illo architecto nemo maiores quaerat voluptate, ea quibusdam illum nihil. Cumque, ipsa est. At perferendis mollitia quidem. Qui accusantium quo ex asperiores recusandae molestiae, voluptates et illum doloremque inventore rerum minima illo id distinctio explicabo quidem laudantium incidunt placeat maxime eaque ipsum! Suscipit vero repellat rem!\n\n\n\n\n" +
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni fugiat at quas exercitationem saepe quibusdam eius veritatis quis eveniet nam quo, aliquid illo inventore voluptatibus mollitia optio dolor et! Nesciunt accusantium, beatae nobis molestias sapiente assumenda deleniti enim debitis? Rem, suscipit? Alias reiciendis quisquam excepturi nesciunt quia veritatis amet a quam autem facilis, asperiores illo architecto nemo maiores quaerat voluptate, ea quibusdam illum nihil. Cumque, ipsa est. At perferendis mollitia quidem. Qui accusantium quo ex asperiores recusandae molestiae, voluptates et illum doloremque inventore rerum minima illo id distinctio explicabo quidem laudantium incidunt placeat maxime eaque ipsum! Suscipit vero repellat rem!\n\n\n\n\n" +
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni fugiat at quas exercitationem saepe quibusdam eius veritatis quis eveniet nam quo, aliquid illo inventore voluptatibus mollitia optio dolor et! Nesciunt accusantium, beatae nobis molestias sapiente assumenda deleniti enim debitis? Rem, suscipit? Alias reiciendis quisquam excepturi nesciunt quia veritatis amet a quam autem facilis, asperiores illo architecto nemo maiores quaerat voluptate, ea quibusdam illum nihil. Cumque, ipsa est. At perferendis mollitia quidem. Qui accusantium quo ex asperiores recusandae molestiae, voluptates et illum doloremque inventore rerum minima illo id distinctio explicabo quidem laudantium incidunt placeat maxime eaque ipsum! Suscipit vero repellat rem!\n\n\n\n\n" +
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni fugiat at quas exercitationem saepe quibusdam eius veritatis quis eveniet nam quo, aliquid illo inventore voluptatibus mollitia optio dolor et! Nesciunt accusantium, beatae nobis molestias sapiente assumenda deleniti enim debitis? Rem, suscipit? Alias reiciendis quisquam excepturi nesciunt quia veritatis amet a quam autem facilis, asperiores illo architecto nemo maiores quaerat voluptate, ea quibusdam illum nihil. Cumque, ipsa est. At perferendis mollitia quidem. Qui accusantium quo ex asperiores recusandae molestiae, voluptates et illum doloremque inventore rerum minima illo id distinctio explicabo quidem laudantium incidunt placeat maxime eaque ipsum! Suscipit vero repellat rem!\n\n\n\n\n",
     publisher: "Yu Po",
     subjects: ["人文 > 歷史與考古學", "社會 > 政治學"],
   };
@@ -58,26 +100,20 @@ const Article = () => {
   return (
     <div className={styles.article}>
       <section className={styles.category}>
-        {/* <div className={styles.outline}>
+        <div className={`${styles.text} ${styles.outline}`}>
           Human- <br />
           ities
         </div>
-        <div className={styles.text}>
-          Human- <br />
-          ities
-        </div> */}
-        <div className={`${styles.mydiv} ${styles.outline}`}>
-          Human- <br />
-          ities
-        </div>
-        <div className={`${styles.mydiv} ${styles.text}`}>
+        <div
+          className={`${styles.text} ${styles.progressBar}`}
+          ref={progressBarRef}
+        >
           Human- <br />
           ities
         </div>
-        <span className={styles.scrollProgress}></span>
       </section>
 
-      <section className={styles.body}>
+      <section className={styles.body} onScroll={progressBarHandler}>
         <section className={styles.info}>
           <div className={styles.title}>{title}</div>
           <div className={`${styles.author} ${styles.row}`}>
@@ -99,7 +135,7 @@ const Article = () => {
             <label>Subject</label>
             <ul>
               {subjects.map((i) => (
-                <li>{i}</li>
+                <li key={`subject-${i}`}>{i}</li>
               ))}
             </ul>
           </div>
@@ -108,9 +144,12 @@ const Article = () => {
             <ul>
               {Array.apply(null, Array(5)).map((_, i) =>
                 i < difficulty ? (
-                  <li style={{ backgroundColor: "#000" }}></li>
+                  <li
+                    key={`star-${i}`}
+                    style={{ backgroundColor: "#000" }}
+                  ></li>
                 ) : (
-                  <li></li>
+                  <li key={`star-${i}`}></li>
                 )
               )}
             </ul>
@@ -136,16 +175,11 @@ const Article = () => {
               src="/test.png"
               alt="Picture of the author"
               layout="fill"
-              objectFit="contain"
+              className={styles.nextImg}
+              objectFit="cover"
             />
           </div>
-          <div
-            ref={cardRef}
-            className={styles.card}
-            // className={`${isCardOpen ? styles.swipeOut : styles.swipeIn} ${
-            //   styles.card
-            // }`}
-          >
+          <div ref={cardRef} className={styles.card}>
             <div className={styles.body}>
               <div className={styles.intro}>
                 羅馬離我們有多遙遠？
@@ -165,18 +199,13 @@ const Article = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 onClick={() => setCardOpen(!isCardOpen)}
                 ref={cardButtonRef}
-            //     className={
-            //       isCardOpen
-            //         ? styles.svgSwipeOut
-            //         :    `${styles.toggleSwipe} ${styles.svgSwipeIn}`
-            //     }
               >
                 <path
                   d="M48.5 24.5C48.5 37.7548 37.7548 48.5 24.5 48.5C11.2452 48.5 0.5 37.7548 0.5 24.5C0.5 11.2452 11.2452 0.5 24.5 0.5C37.7548 0.5 48.5 11.2452 48.5 24.5Z"
                   stroke="white"
                 />
-                <path d="M26 17L37 26L26 35" stroke="white" />
-                <path d="M14 26H36.5" stroke="white" />
+                <path d="M25 16L36 25L25 34" stroke="white" />
+                <path d="M13 25H35.5" stroke="white" />
               </svg>
             </div>
           </div>

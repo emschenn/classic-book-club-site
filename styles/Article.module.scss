@@ -2,35 +2,12 @@
   @include media(">tablet") {
     // background-color: aqua;
     display: flex;
-    height: calc(90vh - #{$header-height} - #{$header-margin-top});
+    height: calc(92vh - #{$header-height} - #{$header-margin-top});
     margin-top: 2.8rem;
-
     .category {
       display: grid;
       position: relative;
-      background-color: yellow;
-
-      // div {
-      //   -webkit-appearance: none;
-      //   writing-mode: vertical-rl;
-      //   text-orientation: mixed;
-      //   font-family: "YaHei";
-      //   font-style: normal;
-      //   font-weight: bold;
-      //   font-size: 7rem;
-      //   line-height: 7.7rem;
-      //   background-color: #fff;
-      // }
-      // .outline {
-      //   position: absolute;
-      //   color: #fff;
-      //   text-shadow: -0.4px -0.4px 0 #000, 0.4px -0.4px 0 #000,
-      //     -0.4px 0.4px 0 #000, 0.4px 0.4px 0 #000;
-      //
-      // }
-      .mydiv {
-        // position: absolute;
-        // top: 0;
+      .text {
         -webkit-appearance: none;
         writing-mode: vertical-rl;
         text-orientation: mixed;
@@ -41,9 +18,8 @@
         line-height: 7.7rem;
         background-color: #fff;
       }
-
       .outline {
-        color: #fff;
+        color: white;
         text-shadow: -0.4px -0.4px 0 #000, 0.4px -0.4px 0 #000,
           -0.4px 0.4px 0 #000, 0.4px 0.4px 0 #000;
         @media not all and (min-resolution: 0.001dpcm) {
@@ -53,17 +29,11 @@
           }
         }
       }
-      .text {
+      .progressBar {
         position: absolute;
+        background: linear-gradient(to top, #000000 20%, #00000000 20%);
+        -webkit-background-clip: text !important;
         -webkit-text-fill-color: transparent;
-        -webkit-background-clip: text;
-      }
-
-      .scrollProgress {
-        position: absolute;
-        inset: 0;
-        background-color: red;
-        z-index: -1;
       }
     }
     .body {
@@ -236,31 +206,22 @@
       .book {
         grid-area: book;
         background-color: rgb(50, 50, 80);
-        height: 320px;
+        min-height: 230px;
+        max-height: 500px;
         position: relative;
         overflow: hidden;
         .img {
           position: relative;
           height: 100%;
-          width: 100%;
-          &::after {
-            position: absolute;
-            content: "";
-            width: 7rem;
-            height: 100%;
-            background: linear-gradient(
-              90deg,
-              rgba(0, 0, 0, 0.32) -16.3%,
-              rgba(0, 0, 0, 0.127333) 81.59%,
-              rgba(0, 0, 0, 0) 100%
-            );
+          & > div {
+            position: unset !important;
+            object-fit: cover !important;
           }
-        }
-        .swipeOut {
-          animation: swipeOut 1s forwards;
-        }
-        .swipeIn {
-          animation: swipeIn 1s forwards;
+          &.nextImg {
+            height: 100% !important;
+            position: relative !important;
+            width: unset !important;
+          }
         }
         .card {
           position: absolute;
@@ -271,46 +232,13 @@
           width: 100%;
           height: auto;
           right: calc(100% - 70px);
-          @keyframes toggleSwipe {
-            0% {
-              right: calc(100% - 80px);
-            }
-
-            100% {
-              right: 100px;
-            }
-          }
-          @keyframes swipeOut {
-            0% {
-              right: calc(100% - 80px);
-              background-color: linear-gradient(
-                90deg,
-                rgba(0, 0, 0, 0.32) -16.3%,
-                rgba(0, 0, 0, 0.127333) 81.59%,
-                rgba(0, 0, 0, 0) 100%
-              );
-            }
-            100% {
-              right: 0px;
-              background-color: rgba(0, 0, 0, 0.32);
-            }
-          }
-          @keyframes swipeIn {
-            0% {
-              right: 0px;
-              background-color: rgba(0, 0, 0, 0.32);
-            }
-            100% {
-              right: calc(100% - 80px);
-              background-color: linear-gradient(
-                90deg,
-                rgba(0, 0, 0, 0.32) -16.3%,
-                rgba(0, 0, 0, 0.127333) 81.59%,
-                rgba(0, 0, 0, 0) 100%
-              );
-            }
-          }
+          background: linear-gradient(
+            90deg,
+            rgba(0, 0, 0, 0.32) 85%,
+            rgba(0, 0, 0, 0) 100%
+          );
           .body {
+            overflow-y: unset;
             flex: 10;
             display: flex;
             flex-direction: column;
@@ -326,35 +254,11 @@
             }
           }
           .slider {
-            flex: 2;
+            cursor: pointer;
+            width: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
-
-            svg {
-              &.svgSwipeOut {
-                animation: svgSwipeOut 1s forwards;
-              }
-              &.svgSwipeIn {
-                animation: svgSwipeIn 1s forwards;
-              }
-              @keyframes svgSwipeOut {
-                0% {
-                  transform: rotate(0deg);
-                }
-                100% {
-                  transform: rotate(180deg);
-                }
-              }
-              @keyframes svgSwipeIn {
-                0% {
-                  transform: rotate(-180deg);
-                }
-                100% {
-                  transform: rotate(0deg);
-                }
-              }
-            }
           }
         }
       }

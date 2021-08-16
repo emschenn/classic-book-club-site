@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 
 import styles from "./Layout.module.scss";
@@ -51,35 +51,26 @@ const Magnifier = () => (
   </svg>
 );
 
-const Categories = ({ categories }) => (
-  <div className={styles.category}>
-    <svg
-      width="40"
-      height="45"
-      viewBox="0 0 40 45"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={styles.arrow}
-    >
-      <path
-        d="M0.880005 0.75L19.83 11.69L38.78 22.63L19.83 33.57L0.880005 44.51"
-        stroke="black"
-        strokeWidth="0.35"
-        strokeMiterlimit="10"
-      />
-    </svg>
-    <ul className={styles.cat}>
-      {categories.map((i) => (
-        <li key={i} className={styles.catLi}>
-          {i}
-        </li>
-      ))}
-    </ul>
-  </div>
+const RightArrow = () => (
+  <svg
+    width="40"
+    height="45"
+    viewBox="0 0 40 45"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={styles.arrow}
+  >
+    <path
+      d="M0.880005 0.75L19.83 11.69L38.78 22.63L19.83 33.57L0.880005 44.51"
+      stroke="black"
+      strokeWidth="0.35"
+      strokeMiterlimit="10"
+    />
+  </svg>
 );
-
 const Header = ({ currentRoute }) => {
   const router = useRouter();
+  const [showChildCat, setShowChildCat] = useState({});
   const routes = [
     { route: "/about", name: "about" },
     { route: "/articles", name: "épistémè" },
@@ -87,12 +78,62 @@ const Header = ({ currentRoute }) => {
   ];
 
   const categories = [
-    "人文學科",
-    "社會科學",
-    "形式科學",
-    "自然科學",
-    "應用科學",
-    "其他",
+    {
+      name: "人文學科",
+      children: [
+        "語言與文學",
+        "藝術設計",
+        "哲學",
+        "歷史與考古學",
+        "宗教與神話",
+      ],
+    },
+    {
+      name: "社會科學",
+      children: ["語言與文學", "藝術設計", "哲學", "歷史與考古學"],
+    },
+    {
+      name: "形式科學",
+      children: [
+        "語言與文學",
+        "藝術設計",
+        "哲學",
+        "歷史與考古學",
+        "宗教與神話",
+      ],
+    },
+    {
+      name: "自然科學",
+      children: [
+        "語言與文學",
+        "藝術設計",
+        "哲學",
+        "歷史與考古學",
+        "宗教與神話",
+      ],
+    },
+    {
+      name: "應用科學",
+      children: [
+        "語言與文學",
+        "藝術設計",
+        "哲學",
+        "歷史與考古學",
+        "歷史與考古學",
+        "歷史與考古學",
+        "宗教與神話",
+      ],
+    },
+    {
+      name: "其他",
+      children: [
+        "語言與文學",
+        "藝術設計",
+        "哲學",
+        "歷史與考古學歷史與",
+        "宗教與神話",
+      ],
+    },
   ];
 
   return (
@@ -103,7 +144,7 @@ const Header = ({ currentRoute }) => {
         </div>
         {routes.map(({ route, name }, index) => (
           <>
-            {index !== 0 && <span></span>}
+            {index !== 0 && <span className={styles.navDivider}></span>}
             <li
               key={name}
               onClick={() => router.push(route)}
@@ -116,7 +157,40 @@ const Header = ({ currentRoute }) => {
           </>
         ))}
         {currentRoute.includes("/articles") && (
-          <Categories categories={categories} />
+          <div className={styles.category}>
+            <RightArrow />
+            <ul className={styles.cat}>
+              {categories.map(({ name, children }, index) => (
+                <>
+                  <li
+                    key={`category-${name}`}
+                    className={styles.catLi}
+                    onMouseEnter={() =>
+                      setShowChildCat({ cat: name, open: true })
+                    }
+                    onMouseLeave={() =>
+                      setShowChildCat({ cat: name, open: false })
+                    }
+                  >
+                    {name}
+                    {showChildCat.cat === name && showChildCat.open && (
+                      <div className={styles.childCat}>
+                        <ul>
+                          {" "}
+                          {children.map((i) => (
+                            <li key={`childCat-${i}`}>{i}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </li>
+                  {index !== categories.length - 1 && (
+                    <span className={styles.catDivider}></span>
+                  )}
+                </>
+              ))}
+            </ul>
+          </div>
         )}
       </ul>
       <ul className={styles.rightNav}>

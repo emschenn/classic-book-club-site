@@ -67,35 +67,42 @@
       position: relative;
       padding: 1rem 1.5rem;
       text-align: center;
-      font-family: "Yahei";
+      font-family: "YaHei";
       font-size: 2rem;
-      font-weight: 700;
+      font-weight: bold;
       letter-spacing: 0.4rem;
       text-orientation: upright;
       writing-mode: vertical-lr;
       line-height: 3rem;
-      &:first-of-type {
-        &::before {
-          content: "";
-          position: absolute;
-          width: 1px;
-          height: 100%;
-          left: 0;
-          top: 0;
-          border-left: 1px solid #d6d6d6;
-          transform: scaleX(0.5);
-        }
+
+      .img {
+        position: fixed;
+        // top: 200;
+        // left: -48px;
+        width: 400px;
+        height: 180px;
+        pointer-events: none;
       }
-      &::after {
-        content: "";
+      span {
         position: absolute;
+        top: 0;
         width: 1px;
         height: 100%;
-        right: 0;
-        top: 0;
-        border-right: 1px solid #d6d6d6;
+        border-left: 1px solid #d6d6d6;
         transform: scaleX(0.5);
+        &.dividerLeft {
+          left: 0;
+        }
+        &.dividerRight {
+          right: 0;
+        }
       }
+      &:not(:last-of-type) {
+        .dividerRight {
+          display: none;
+        }
+      }
+
       &:hover {
         -webkit-box-shadow: -12px 0px 30px -10px rgba(0, 0, 0, 0.23);
         box-shadow: -12px 0px 30px -10px rgba(0, 0, 0, 0.23);
@@ -107,18 +114,21 @@
             text-shadow: 0 0 1.5px black;
           }
         }
-        &::after {
-          border-right: 1px solid #000;
+        span {
+          border-color: #000;
+          &.dividerRight {
+            display: block;
+          }
         }
-        &::before {
-          content: "";
-          position: absolute;
-          width: 1px;
-          height: 100%;
-          left: 0;
-          top: 0;
-          border-left: 1px solid #000;
-          transform: scaleX(0.5);
+        z-index: 1;
+        .img {
+          z-index: -1;
+        }
+        li {
+          z-index: 2;
+        }
+        span {
+          z-index: -2;
         }
       }
     }

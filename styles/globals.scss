@@ -7,7 +7,15 @@
 // 'desktop': 1024px
 @font-face {
   font-family: "Yahei"; /*a name to be used later*/
+  font-weight: regular;
   src: url("../font/MicrosoftYahei.ttf");
+  //src: url("../font/MicrosoftYaheiB.ttf");
+}
+
+@font-face {
+  font-family: "Yahei"; /*a name to be used later*/
+  font-weight: bold;
+  src: url("../font/MicrosoftYaheiBold.ttf");
   //src: url("../font/MicrosoftYaheiB.ttf");
 }
 

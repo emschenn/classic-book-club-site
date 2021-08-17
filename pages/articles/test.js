@@ -84,6 +84,8 @@ const Article = () => {
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni fugiat at quas exercitationem saepe quibusdam eius veritatis quis eveniet nam quo, aliquid illo inventore voluptatibus mollitia optio dolor et! Nesciunt accusantium, beatae nobis molestias sapiente assumenda deleniti enim debitis? Rem, suscipit? Alias reiciendis quisquam excepturi nesciunt quia veritatis amet a quam autem facilis, asperiores illo architecto nemo maiores quaerat voluptate, ea quibusdam illum nihil. Cumque, ipsa est. At perferendis mollitia quidem. Qui accusantium quo ex asperiores recusandae molestiae, voluptates et illum doloremque inventore rerum minima illo id distinctio explicabo quidem laudantium incidunt placeat maxime eaque ipsum! Suscipit vero repellat rem!\n\n\n\n\n",
     publisher: "Yu Po",
     subjects: ["人文 > 歷史與考古學", "社會 > 政治學"],
+    intro:
+      " 羅馬離我們有多遙遠？知名歷史學者瑪莉‧畢爾德告訴我們：羅馬其實離我們很近，近得讓人訝異。    羅馬人雖然已逝，但留給我們許多影響現代社會的概念，包括自由、公民、帝國的剝削，還有一整套現代政治的語言....。",
   };
   const {
     title,
@@ -96,6 +98,7 @@ const Article = () => {
     region,
     content,
     subjects,
+    intro,
   } = article;
   return (
     <div className={styles.article}>
@@ -181,14 +184,12 @@ const Article = () => {
           </div>
           <div ref={cardRef} className={styles.card}>
             <div className={styles.body}>
-              <div className={styles.intro}>
-                羅馬離我們有多遙遠？
-                <br />
-                <br />
-                知名歷史學者瑪莉‧畢爾德告訴我們：羅馬其實離我們很近，近得讓人訝異。
-                羅馬人雖然已逝，但留給我們許多影響現代社會的概念，包括自由、公民、帝國的剝削，還有一整套現代政治的語言....。
-              </div>
-              <div className={styles.hashtag}>#fff</div>
+              <div className={styles.intro}>{intro} </div>
+              <ul className={styles.hashtag}>
+                {hashtag.map((i) => (
+                  <li>{i}</li>
+                ))}
+              </ul>
             </div>
             <div className={styles.slider}>
               <svg

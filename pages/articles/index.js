@@ -1,9 +1,13 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/router";
 
+import gsap from "gsap";
 import { createClient } from "contentful";
 import styles from "../../styles/Archive.module.scss";
+
+import useMousePosition from "../../hooks/useMousePosition";
 
 // export async function getStaticProps() {
 //   const client = createClient({
@@ -76,6 +80,11 @@ const Archive = ({}) => {
   // console.log(subCategories);
 
   const bookcaseRef = useRef(null);
+  const imgRef = useRef(null);
+  const { x, y } = useMousePosition();
+
+  const [showImg, setShowImg] = useState({});
+
   const onBookcaseScroll = (e) => {
     const container = bookcaseRef.current;
     const containerScrollPosition = bookcaseRef.current.scrollLeft;
@@ -85,31 +94,35 @@ const Archive = ({}) => {
       behaviour: "smooth",
     });
   };
+
+  useEffect(() => {
+    // console.log(imgRef.current.clientWidth);
+
+    console.log(`${x},${y}`);
+    if (showImg.isOpen) {
+      gsap.to(imgRef.current, 0.01, {
+        ease: "power3.inOut",
+        top: y - imgRef.current.clientHeight / 2,
+        left: x - imgRef.current.clientWidth / 2,
+      });
+    }
+  }, [x, y]);
+
   const articles = [
     "柏拉圖理想國",
     "懺悔錄",
     "奧之細道／芭蕉之奧羽北陸行腳",
     "e",
-    "柏拉圖理想國",
-    "懺悔錄",
-    "奧之細道／芭蕉之奧羽北陸行腳",
-    "e",
-    "柏拉圖理想國",
-    "懺悔錄",
-    "奧之細道／芭蕉之奧羽北陸行腳",
-    "e",
-    "柏拉圖理想國",
-    "懺悔錄",
-    "奧之細道／芭蕉之奧羽北陸行腳",
-    "e",
-    "柏拉圖理想國",
-    "懺悔錄",
-    "奧之細道／芭蕉之奧羽北陸行腳",
-    "e",
-    "柏拉圖理想國",
-    "懺悔錄",
-    "奧之細道／芭蕉之奧羽北陸行腳",
-    "e",
+    "aaaa",
+    "bbbbbb",
+    "xxxx",
+    "vvvv",
+    "rwrwe",
+    "羽北陸行腳",
+    "柏拉圖",
+    "懺悔錄wwew",
+    "srwk;mfkwewe",
+    "奧之細道／芭蕉之奧羽北陸行奧芭蕉之奧羽北陸行腳腳",
   ];
 
   return (
@@ -123,15 +136,38 @@ const Archive = ({}) => {
       </div>
       <div className={styles.bookcase}>
         <ul ref={bookcaseRef} onWheel={onBookcaseScroll}>
-          {articles.map((article) => (
-            <li
-              key={article} //.sys.id}
-              //  href="/articles/[id].js"
-              //    as={`/articles/${article.fields.slug}`}
-              className={styles.book}
-            >
-              {article}
-            </li>
+          {articles.map((article, index) => (
+            <>
+              <div
+                className={styles.book}
+                onMouseEnter={() => setShowImg({ name: article, isOpen: true })}
+                onMouseLeave={() =>
+                  setShowImg({ name: article, isOpen: false })
+                }
+              >
+                <span className={styles.dividerLeft}></span>
+
+                <li
+                  key={article} //.sys.id}
+                  //  href="/articles/[id].js"
+                  //    as={`/articles/${article.fields.slug}`}
+                  // className={styles.book}
+                >
+                  {article}
+                </li>
+                {showImg.isOpen && showImg.name === article && (
+                  <div className={styles.img} ref={imgRef}>
+                    <Image
+                      src="/test.png"
+                      alt="Picture of the author"
+                      layout="fill"
+                      objectFit="contain"
+                    />
+                  </div>
+                )}
+                <span className={styles.dividerRight}></span>
+              </div>
+            </>
           ))}
         </ul>
       </div>

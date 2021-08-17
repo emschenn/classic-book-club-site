@@ -75,10 +75,12 @@
           line-height: 3.2rem;
           letter-spacing: 0.2em;
           margin-bottom: 1.2rem;
+          font-weight: bold;
         }
 
         .author {
           font-family: "YaHei";
+          font-weight: bold;
         }
         .yearAndRegion {
           display: flex;
@@ -251,6 +253,18 @@
             color: #fff;
             padding: 2rem 0.6rem 1.6rem 1.4rem;
             .intro {
+            }
+            .hashtag {
+              display: flex;
+              li {
+                &::before {
+                  content: "#";
+                  padding-right: 0.2rem;
+                }
+                &:not(:first-of-type) {
+                  padding-left: 0.6rem;
+                }
+              }
             }
           }
           .slider {

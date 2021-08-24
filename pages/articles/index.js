@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 // style
 import styles from "../../styles/Archive.module.scss";
@@ -68,6 +69,10 @@ const Archive = ({ categories, books, categorizedBooks }) => {
 
   return (
     <>
+      <Head>
+        <title>經典讀書會 | 文章列表</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Header categories={categories} />
       <div className={styles.sortBy}>
         <DetailBar />

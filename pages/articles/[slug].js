@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import gsap from "gsap";
+import Head from "next/head";
 
 // styles
 import styles from "../../styles/Article.module.scss";
@@ -153,6 +154,10 @@ const Article = ({ headerData, article }) => {
 
   return (
     <>
+      <Head>
+        <title>經典讀書會 | {title}</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <Header categories={headerData} />
       <div className={styles.article}>
         <section className={styles.category}>

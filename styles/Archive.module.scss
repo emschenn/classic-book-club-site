@@ -74,7 +74,10 @@
       text-orientation: upright;
       writing-mode: vertical-lr;
       line-height: 3rem;
-
+      li {
+        text-align: left;
+        display: inline-block;
+      }
       .img {
         position: fixed;
         // top: 200;
@@ -132,5 +135,23 @@
         }
       }
     }
+  }
+}
+
+.emptyCase {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  p {
+    font-family: "YaHei";
+    font-weight: bold;
+    font-size: 2rem;
+    line-height: 4rem;
+  }
+  svg {
+    transform: translate(20rem, 0rem);
+    // padding: 5rem 0 0 8rem;
   }
 }

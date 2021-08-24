@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 
-import styles from "./Layout.module.scss";
+import styles from "../styles/Layout.module.scss";
 
 const Earth = () => (
   <svg
@@ -68,8 +68,10 @@ const RightArrow = () => (
     />
   </svg>
 );
-const Header = ({ currentRoute }) => {
+
+const Header = ({ categories }) => {
   const router = useRouter();
+  const currentRoute = router.pathname;
   const [showChildCat, setShowChildCat] = useState({});
   const routes = [
     { route: "/about", name: "about" },
@@ -77,69 +79,15 @@ const Header = ({ currentRoute }) => {
     { route: "/contact", name: "contact" },
   ];
 
-  const categories = [
-    {
-      name: "人文學科",
-      children: [
-        "語言與文學",
-        "藝術設計",
-        "哲學",
-        "歷史與考古學",
-        "宗教與神話",
-      ],
-    },
-    {
-      name: "社會科學",
-      children: ["語言與文學", "藝術設計", "哲學", "歷史與考古學"],
-    },
-    {
-      name: "形式科學",
-      children: [
-        "語言與文學",
-        "藝術設計",
-        "哲學",
-        "歷史與考古學",
-        "宗教與神話",
-      ],
-    },
-    {
-      name: "自然科學",
-      children: [
-        "語言與文學",
-        "藝術設計",
-        "哲學",
-        "歷史與考古學",
-        "宗教與神話",
-      ],
-    },
-    {
-      name: "應用科學",
-      children: [
-        "語言與文學",
-        "藝術設計",
-        "哲學",
-        "歷史與考古學",
-        "歷史與考古學",
-        "歷史與考古學",
-        "宗教與神話",
-      ],
-    },
-    {
-      name: "其他",
-      children: [
-        "語言與文學",
-        "藝術設計",
-        "哲學",
-        "歷史與考古學歷史與",
-        "宗教與神話",
-      ],
-    },
-  ];
-
   return (
     <div className={styles.header}>
       <ul className={styles.nav}>
-        <div className={styles.logo} onClick={() => router.push("/")}>
+        <div
+          className={styles.logo}
+          onClick={() => {
+            router.push("/");
+          }}
+        >
           LOGO
         </div>
         {routes.map(({ route, name }, index) => (
@@ -147,10 +95,12 @@ const Header = ({ currentRoute }) => {
             {index !== 0 && <span className={styles.navDivider}></span>}
             <li
               key={name}
-              onClick={() => router.push(route)}
               className={`${styles.navLi} ${
                 currentRoute.includes(route) ? styles.focus : undefined
               }`}
+              onClick={() => {
+                router.push(route);
+              }}
             >
               {name}
             </li>
@@ -160,7 +110,7 @@ const Header = ({ currentRoute }) => {
           <div className={styles.category}>
             <RightArrow />
             <ul className={styles.cat}>
-              {categories.map(({ name, children }, index) => (
+              {categories.map(({ name, children, slug }, index) => (
                 <>
                   <li
                     key={`category-${name}`}
@@ -171,14 +121,24 @@ const Header = ({ currentRoute }) => {
                     onMouseLeave={() =>
                       setShowChildCat({ cat: name, open: false })
                     }
+                    onClick={() => {
+                      router.push(`/articles?cat=${slug}`);
+                    }}
                   >
                     {name}
                     {showChildCat.cat === name && showChildCat.open && (
                       <div className={styles.childCat}>
                         <ul>
-                          {" "}
-                          {children.map((i) => (
-                            <li key={`childCat-${i}`}>{i}</li>
+                          {children.map(({ name, slug }) => (
+                            <li
+                              key={`childCat-${slug}`}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                router.push(`/articles?cat=${slug}`);
+                              }}
+                            >
+                              {name}
+                            </li>
                           ))}
                         </ul>
                       </div>

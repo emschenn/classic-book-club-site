@@ -49,7 +49,8 @@
         "info book"
         "info share"
         "note note"
-        "content content";
+        "content content"
+        "footer footer";
       width: 100%;
       height: 100%;
       label {
@@ -176,6 +177,10 @@
           .podcast {
             padding-left: 2rem;
           }
+          a {
+            text-decoration: inherit;
+            color: inherit;
+          }
           ul {
             display: flex;
             li {
@@ -251,18 +256,18 @@
             font-size: 1.2rem;
             height: auto;
             color: #fff;
-            padding: 2rem 0.6rem 1.6rem 1.4rem;
+            padding: 2rem 0.6rem 1.6rem 0rem;
             .intro {
+              padding-left: 1.4rem;
             }
             .hashtag {
               display: flex;
+              flex-wrap: wrap;
               li {
+                padding-left: 1.4rem;
                 &::before {
                   content: "#";
                   padding-right: 0.2rem;
-                }
-                &:not(:first-of-type) {
-                  padding-left: 0.6rem;
                 }
               }
             }
@@ -330,7 +335,7 @@
           flex: 8.5;
           display: flex;
           font-family: Poppins;
-          font-weight: 300;
+          font-weight: 400;
           font-size: 1.2rem;
           line-height: 1.6rem;
           padding-top: 1rem;
@@ -343,11 +348,18 @@
       .content {
         grid-area: content;
         padding: 2rem 2rem 0 1rem;
-        //background-color: pink;
         font-size: 1.2rem;
         font-family: Yu Gothic UI;
         font-weight: 300;
         line-height: 1.6rem;
+        text-transform: full-width;
+        @import "markdown";
+      }
+      .footer {
+        z-index: 2;
+        grid-area: footer;
+        padding: 1rem 0 2rem 0;
+        // border-top: 1px solid #000;
       }
     }
   }

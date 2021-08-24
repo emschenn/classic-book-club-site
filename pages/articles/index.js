@@ -31,6 +31,10 @@ export async function getStaticProps() {
 }
 
 const Archive = ({ categories, books, categorizedBooks }) => {
+  if (!books || !categorizedBooks) {
+    return <div>Loading</div>;
+  }
+
   const router = useRouter();
   const bookcaseRef = useRef(null);
   const imgRef = useRef(null);

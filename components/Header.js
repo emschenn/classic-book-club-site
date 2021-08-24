@@ -106,7 +106,7 @@ const Header = ({ categories }) => {
             </li>
           </>
         ))}
-        {currentRoute.includes("/articles") && (
+        {currentRoute.includes("/articles") && categories && (
           <div className={styles.category}>
             <RightArrow />
             <ul className={styles.cat}>

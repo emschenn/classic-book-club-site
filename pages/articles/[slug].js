@@ -49,6 +49,9 @@ export async function getStaticProps({ params }) {
 }
 
 const Article = ({ headerData, article }) => {
+  if (!article) {
+    return <div>Loading</div>;
+  }
   const [isCardOpen, setCardOpen] = useState(null);
   const [progress, setProgress] = useState(0);
   const cardRef = useRef(null);

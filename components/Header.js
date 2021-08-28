@@ -81,7 +81,7 @@ const Header = ({ categories }) => {
     { route: "/articles", name: "épistémè" },
     { route: "/contact", name: "contact" },
   ];
-  const [cats, dispatchCats] = useCategoryState();
+  const [catState, dispatchCats] = useCategoryState();
 
   return (
     <div className={styles.header}>
@@ -108,7 +108,7 @@ const Header = ({ categories }) => {
                   typeof dispatchCats !== "undefined"
                 ) {
                   dispatchCats({
-                    type: "clearCat",
+                    type: "clearAllCat",
                   });
                 }
                 router.push(route);
@@ -126,7 +126,11 @@ const Header = ({ categories }) => {
                 <>
                   <li
                     key={`category-${name}`}
-                    className={styles.catLi}
+                    className={
+                      catState.parent === slug
+                        ? `${styles.catLi} ${styles.focus}`
+                        : styles.catLi
+                    }
                     onMouseEnter={() =>
                       setShowChildCat({ cat: name, open: true })
                     }
@@ -135,8 +139,12 @@ const Header = ({ categories }) => {
                     }
                     onClick={() => {
                       dispatchCats({
-                        type: "setCat",
+                        type: "setChildCat",
                         payload: children.map(({ slug }) => slug),
+                      });
+                      dispatchCats({
+                        type: "setParentCat",
+                        payload: slug,
                       });
                       router.push(`/articles?cat=${slug}`);
                     }}
@@ -151,8 +159,12 @@ const Header = ({ categories }) => {
                               onClick={(e) => {
                                 e.stopPropagation();
                                 dispatchCats({
-                                  type: "setCat",
+                                  type: "setChildCat",
                                   payload: [childSlug],
+                                });
+                                dispatchCats({
+                                  type: "setParentCat",
+                                  payload: slug,
                                 });
                                 router.push(`/articles?cat=${slug}`);
                               }}

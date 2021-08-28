@@ -34,29 +34,6 @@ export async function getStaticProps() {
   };
 }
 
-const ACTIONS = {
-  TOGGLE_CAT: "toggleCat",
-  SET_CAT: "setCat",
-  CLEAR_CAT: "clearCat",
-};
-
-const reducer = (cats, action) => {
-  switch (action.type) {
-    case ACTIONS.TOGGLE_CAT: {
-      const cat = action.payload.subCat;
-      return cats.includes(cat)
-        ? cats.filter((i) => i !== cat)
-        : [...cats, cat];
-    }
-    case ACTIONS.SET_CAT: // set specific subCat
-      return action.payload.subCat;
-    case ACTIONS.CLEAR_CAT: // clear cat filter
-      return [];
-    default:
-      return cats;
-  }
-};
-
 const Archive = ({ categories, books, categorizedBooks }) => {
   if (!books || !categorizedBooks) {
     return <div>Loading</div>;
@@ -68,7 +45,7 @@ const Archive = ({ categories, books, categorizedBooks }) => {
   const { x, y } = useMousePosition();
 
   const [showImg, setShowImg] = useState({});
-  const [cats, dispatchCats] = useCategoryState();
+  const [catState, dispatchCats] = useCategoryState();
 
   const onBookcaseScroll = (e) => {
     const container = bookcaseRef.current;
@@ -92,7 +69,7 @@ const Archive = ({ categories, books, categorizedBooks }) => {
 
   const getTheFilteredBooks = () => {
     let results = [];
-    cats?.forEach((cat) => {
+    catState.children.forEach((cat) => {
       const books = categorizedBooks[cat];
       if (books) {
         results = [...results, ...books];
@@ -113,15 +90,7 @@ const Archive = ({ categories, books, categorizedBooks }) => {
       </Head>
       <Header categories={categories} />
       <div className={styles.sortBy}>
-        <DetailBar
-          currentCats={cats}
-          dispatchCats={dispatchCats}
-          childCats={
-            router.query.cat
-              ? categories.filter(({ slug }) => slug === router.query.cat)
-              : undefined
-          }
-        />
+        <DetailBar categories={categories} />
       </div>
       <div className={styles.bookcase}>
         {booksInBookcase.length > 0 ? (

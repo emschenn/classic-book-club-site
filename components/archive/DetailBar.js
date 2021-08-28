@@ -3,6 +3,9 @@ import React from "react";
 // style
 import styles from "../../styles/Archive.module.scss";
 
+// context
+import { useCategoryState } from "../../context/categoryState";
+
 const RightArrow = () => (
   <svg
     width="17"
@@ -20,7 +23,14 @@ const RightArrow = () => (
   </svg>
 );
 
-const DetailBar = ({ currentCats, childCats, dispatchCats }) => {
+const DetailBar = ({ categories }) => {
+  const [catState, dispatchCats] = useCategoryState();
+  const { parent, children: currentCats } = catState;
+
+  const childCats = parent
+    ? categories.filter(({ slug }) => slug === parent)
+    : undefined;
+
   return (
     <>
       <div className={styles.cat}>
@@ -33,7 +43,7 @@ const DetailBar = ({ currentCats, childCats, dispatchCats }) => {
                 }
                 onClick={() => {
                   dispatchCats({
-                    type: "toggleCat",
+                    type: "toggleChildCat",
                     payload: slug,
                   });
                 }}

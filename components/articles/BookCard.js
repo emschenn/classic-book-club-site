@@ -29,7 +29,10 @@ const BookCard = ({
           <div className={styles.intro}>
             {introduction} Lorem ipsum dolor, sit amet consectetur adipisicing
             elit. Iusto voluptate nemo deleniti consequuntur veniam qui cumque
-            magni. Illo, debitis dus laudantium harum delectus dolorem!{" "}
+            magni. Illo, debitis ratione quasi quae odit laborum deserunt?
+            Temporibus, laboriosam delectus repellat doloribus vitae facilis
+            enim magni rem aperiam illo sint! Necessitatibus inventore impedit
+            exercitationem? Eiuendus laudantium harum delectus dolorem!{" "}
           </div>
           <ul className={styles.hashtag}>
             {hashtag?.map((i) => (

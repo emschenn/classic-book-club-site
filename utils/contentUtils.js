@@ -24,9 +24,16 @@ export function getRegionContent(region, country) {
 export function getSubjectContent(categories) {
   let content = [];
   categories.forEach((cat) => {
-    const parent = cat.fields.parent.fields.name;
-    const child = cat.fields.name;
-    content = [...content, `${parent} > ${child}`];
+    const parent = cat.fields.parent.fields;
+    const child = cat.fields;
+    content = [
+      ...content,
+      {
+        name: `${parent.name} > ${child.name}`,
+        parent: parent.slug,
+        slug: child.slug,
+      },
+    ];
   });
   return content;
 }

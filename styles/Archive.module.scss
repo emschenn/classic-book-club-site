@@ -130,9 +130,6 @@
       text-orientation: upright;
       writing-mode: vertical-lr;
       line-height: 3rem;
-      .sideBlock {
-        display: none;
-      }
       li {
         padding: 3rem 1.5rem;
         text-align: left;
@@ -194,10 +191,7 @@
           z-index: -2;
         }
         &.active {
-          transition-property: transform;
-          transition-duration: 0.2s;
-          transition-timing-function: ease-out;
-
+          transition: transform 200ms ease;
           $top-offset: 5px;
           $right-offset: 12px;
           transform: translate(-$right-offset, $top-offset);

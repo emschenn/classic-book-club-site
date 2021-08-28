@@ -1,7 +1,11 @@
 import React from "react";
+import { useRouter } from "next/router";
 
 // styles
 import styles from "../../styles/Article.module.scss";
+
+// context
+import { useCategoryState } from "../../context/categoryState";
 
 const BookInfo = ({
   title,
@@ -14,6 +18,10 @@ const BookInfo = ({
   podcastYoutube,
   podcastSpotify,
 }) => {
+  const router = useRouter();
+
+  const [catState, dispatchCats] = useCategoryState();
+
   return (
     <>
       <div className={styles.title}>{title}</div>
@@ -35,8 +43,23 @@ const BookInfo = ({
       <div className={`${styles.subjects}  ${styles.row}`}>
         <label>Subject</label>
         <ul>
-          {subjects.map((i) => (
-            <li key={`subject-${i}`}>{i}</li>
+          {subjects.map(({ name, slug, parent }) => (
+            <li
+              key={`subject-${slug}`}
+              onClick={() => {
+                dispatchCats({
+                  type: "setChildCat",
+                  payload: [slug],
+                });
+                dispatchCats({
+                  type: "setParentCat",
+                  payload: parent,
+                });
+                router.push(`/articles?cat=${slug}`);
+              }}
+            >
+              {name}
+            </li>
           ))}
         </ul>
       </div>

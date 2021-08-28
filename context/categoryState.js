@@ -3,33 +3,45 @@ import { createContext, useContext, useReducer } from "react";
 const CategoryContext = createContext();
 
 const ACTIONS = {
-  TOGGLE_CAT: "toggleCat",
-  SET_CAT: "setCat",
-  CLEAR_CAT: "clearCat",
+  TOGGLE_CHILD_CAT: "toggleChildCat",
+  SET_CHILD_CAT: "setChildCat",
+  CLEAR_ALL_CAT: "clearAllCat",
+  SET_PARENT_CAT: "setParentCat",
 };
 
-const reducer = (cats, action) => {
+const reducer = (catState, action) => {
   switch (action.type) {
-    case ACTIONS.TOGGLE_CAT: {
+    case ACTIONS.TOGGLE_CHILD_CAT: {
       const cat = action.payload;
-      return cats.includes(cat)
-        ? cats.filter((i) => i !== cat)
-        : [...cats, cat];
+      const { children } = catState;
+      return {
+        ...catState,
+        children: children.includes(cat)
+          ? children.filter((i) => i !== cat)
+          : [...children, cat],
+      };
     }
-    case ACTIONS.SET_CAT: // set specific subCat
-      return action.payload;
-    case ACTIONS.CLEAR_CAT: // clear cat filter
-      return [];
+    case ACTIONS.SET_CHILD_CAT: {
+      return { ...catState, children: action.payload };
+    }
+    case ACTIONS.SET_PARENT_CAT: {
+      return { ...catState, parent: action.payload };
+    }
+    case ACTIONS.CLEAR_ALL_CAT: // clear cat filter
+      return { parent: undefined, children: [] };
     default:
-      return cats;
+      return catState;
   }
 };
 
 export function CategoryStateProvider({ children }) {
-  const [cats, dispatchCats] = useReducer(reducer, []);
+  const [catState, dispatchCats] = useReducer(reducer, {
+    parent: undefined,
+    children: [],
+  });
 
   return (
-    <CategoryContext.Provider value={[cats, dispatchCats]}>
+    <CategoryContext.Provider value={[catState, dispatchCats]}>
       {children}
     </CategoryContext.Provider>
   );

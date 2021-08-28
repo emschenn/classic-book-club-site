@@ -87,6 +87,9 @@
               font-weight: 400;
             }
           }
+          &.focus {
+            font-weight: 500;
+          }
           .childCat {
             position: absolute;
             top: 3rem;

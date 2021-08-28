@@ -11,6 +11,7 @@ const BookCard = ({
   introduction,
   toggleCardOpen,
   cardButtonRef,
+  douban,
 }) => {
   return (
     <>
@@ -25,12 +26,26 @@ const BookCard = ({
       </div>
       <div ref={cardRef} className={styles.card}>
         <div className={styles.body}>
-          <div className={styles.intro}>{introduction} </div>
+          <div className={styles.intro}>
+            {introduction} Lorem ipsum dolor, sit amet consectetur adipisicing
+            elit. Iusto voluptate nemo deleniti consequuntur veniam qui cumque
+            magni. Illo, debitis dus laudantium harum delectus dolorem!{" "}
+          </div>
           <ul className={styles.hashtag}>
             {hashtag?.map((i) => (
               <li>{i}</li>
             ))}
           </ul>
+
+          {douban && (
+            <ul className={styles.links}>
+              <span>|</span>
+              <a href={douban} target="_blank">
+                <li>豆瓣</li>
+              </a>
+              <span>|</span>
+            </ul>
+          )}
         </div>
         <div className={styles.slider}>
           <svg

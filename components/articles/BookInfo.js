@@ -64,16 +64,13 @@ const BookInfo = ({
         <div className={styles.podcast}>
           <label>Podcast</label>
           <ul>
-            {podcastYoutube && (
-              <a href={podcastYoutube} target="_blank">
-                <li>Y</li>
-              </a>
-            )}
-            {podcastSpotify && (
-              <a href={podcastSpotify} target="_blank">
-                <li>S</li>
-              </a>
-            )}
+            <a href={podcastYoutube} target="_blank">
+              <li className={podcastYoutube ? undefined : styles.disable}>Y</li>
+            </a>
+
+            <a href={podcastSpotify} target="_blank">
+              <li className={podcastYoutube ? undefined : styles.disable}>S</li>
+            </a>
           </ul>
         </div>
       </div>

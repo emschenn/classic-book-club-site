@@ -20,13 +20,39 @@ const RightArrow = () => (
   </svg>
 );
 
-const DetailBar = () => {
+const DetailBar = ({ currentCats, childCats, dispatchCats }) => {
   return (
     <>
-      <label>sort by</label>
+      <div className={styles.cat}>
+        <ul>
+          {childCats ? (
+            childCats[0]?.children.map(({ name, slug }) => (
+              <li
+                className={
+                  currentCats.includes(slug) ? styles.select : styles.notSelect
+                }
+                onClick={() => {
+                  dispatchCats({
+                    type: "toggleCat",
+                    payload: { subCat: slug },
+                  });
+                }}
+                key={`detailBar-${slug}`}
+              >
+                {name}
+              </li>
+            ))
+          ) : (
+            <li>{" { 所有文章 } "}</li>
+          )}
+        </ul>
+      </div>
       <div className={styles.sort}>
-        latest
-        <RightArrow />
+        <label>sort by</label>
+        <div className={styles.sort}>
+          latest
+          <RightArrow />
+        </div>
       </div>
     </>
   );

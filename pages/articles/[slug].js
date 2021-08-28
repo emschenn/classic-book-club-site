@@ -186,6 +186,7 @@ const Article = ({ headerData, article }) => {
               cardRef={cardRef}
               cardButtonRef={cardButtonRef}
               hashtag={hashtag}
+              douban={douban}
               introduction={introduction}
               toggleCardOpen={toggleCardOpen}
             />

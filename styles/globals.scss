@@ -3,46 +3,91 @@
 @import "reset-css";
 
 @font-face {
-  font-family: "Yahei";
-  font-weight: normal;
-  src: url("/font/MicrosoftYahei.ttf");
+  font-family: "Gen Shin Gothic";
+  src: url("/fonts/GenShinGothic-ExtraLight.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: "Yahei";
-  font-weight: bold;
-  src: url("/font/MicrosoftYaheiBold.ttf");
-}
-
-@font-face {
-  font-family: "Yu Gothic UI";
+  font-family: "Gen Shin Gothic";
+  src: url("/fonts/GenShinGothic-Light.woff2") format("woff2");
   font-weight: 300;
-  src: url("/font/YuGothL.ttf");
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: "Yu Gothic UI";
+  font-family: "Gen Shin Gothic";
+  src: url("/fonts/GenShinGothic-Normal.woff2") format("woff2");
   font-weight: 400;
-  src: url("/font/YuGothSL.ttf");
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
-  font-family: "Yu Gothic UI";
+  font-family: "Gen Shin Gothic";
+  src: url("/fonts/GenShinGothic-Medium.woff2") format("woff2");
   font-weight: 500;
-  src: url("/font/YuGothR.ttf");
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gen Shin Gothic";
+  src: url("/fonts/GenShinGothic-Heavy.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Gen Shin Gothic";
+  src: url("/fonts/GenShinGothic-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Yu Gothic UI";
-  font-weight: 600;
-  src: url("/font/YuGothSB.ttf");
+  src: url("/fonts/YuGothicUI-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
 }
 
+@font-face {
+  font-family: "Yu Gothic UI";
+  src: url("/fonts/YuGothicUI-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Yu Gothic UI Semilight";
+  src: url("/fonts/YuGothicUI-Semilight.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Yu Gothic UI";
+  src: url("/fonts/YuGothicUI-Semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+html {
+  font-size: 14px;
+}
 body {
   background: #fff;
   margin: 0 48px;
-  font-family: "Roboto";
-  font-size: 24px;
+  font-family: "Poppins", "Gen Shin Gothic";
   overscroll-behavior-y: none;
   @include media(">phone", "<=tablet") {
     // background-color: aqua;
@@ -57,4 +102,9 @@ body {
 ul,
 li {
   list-style: none;
+}
+
+a {
+  text-decoration: inherit;
+  color: inherit;
 }

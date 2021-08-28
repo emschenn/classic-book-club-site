@@ -65,10 +65,22 @@ export function categorizeBooks(books) {
       result[childCat] = result[childCat]
         ? [...result[childCat], { ...bookInfo }]
         : [{ ...bookInfo }];
-      result[parentCat] = result[parentCat]
-        ? [...result[parentCat], { ...bookInfo }]
-        : [{ ...bookInfo }];
+      // result[parentCat] = result[parentCat]
+      //   ? [...result[parentCat], { ...bookInfo }]
+      //   : [{ ...bookInfo }];
     });
   });
+  return result;
+}
+
+export function removeDuplicateBook(books) {
+  const seenBooks = new Set();
+
+  const result = books.filter((book) => {
+    const duplicate = seenBooks.has(book.slug);
+    seenBooks.add(book.slug);
+    return !duplicate;
+  });
+
   return result;
 }

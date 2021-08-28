@@ -69,7 +69,7 @@ const RightArrow = () => (
   </svg>
 );
 
-const Header = ({ categories }) => {
+const Header = ({ categories, dispatchCats }) => {
   const router = useRouter();
   const currentRoute = router.pathname;
   const [showChildCat, setShowChildCat] = useState({});
@@ -99,6 +99,14 @@ const Header = ({ categories }) => {
                 currentRoute.includes(route) ? styles.focus : undefined
               }`}
               onClick={() => {
+                if (
+                  route === "/articles" &&
+                  typeof dispatchCats !== "undefined"
+                ) {
+                  dispatchCats({
+                    type: "clearCat",
+                  });
+                }
                 router.push(route);
               }}
             >
@@ -122,6 +130,10 @@ const Header = ({ categories }) => {
                       setShowChildCat({ cat: name, open: false })
                     }
                     onClick={() => {
+                      dispatchCats({
+                        type: "initCat",
+                        payload: { cat: slug },
+                      });
                       router.push(`/articles?cat=${slug}`);
                     }}
                   >
@@ -129,11 +141,15 @@ const Header = ({ categories }) => {
                     {showChildCat.cat === name && showChildCat.open && (
                       <div className={styles.childCat}>
                         <ul>
-                          {children.map(({ name, slug }) => (
+                          {children.map(({ name, slug: childSlug }) => (
                             <li
-                              key={`childCat-${slug}`}
+                              key={`childCat-${childSlug}`}
                               onClick={(e) => {
                                 e.stopPropagation();
+                                dispatchCats({
+                                  type: "setCat",
+                                  payload: { subCat: childSlug },
+                                });
                                 router.push(`/articles?cat=${slug}`);
                               }}
                             >

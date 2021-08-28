@@ -34,7 +34,7 @@ const DetailBar = ({ currentCats, childCats, dispatchCats }) => {
                 onClick={() => {
                   dispatchCats({
                     type: "toggleCat",
-                    payload: { subCat: slug },
+                    payload: slug,
                   });
                 }}
                 key={`detailBar-${slug}`}

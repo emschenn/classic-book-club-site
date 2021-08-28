@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useReducer } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { useRouter } from "next/router";
 import Head from "next/head";
@@ -18,6 +18,9 @@ import DetailBar from "../../components/archive/DetailBar";
 import Bookcase from "../../components/archive/Bookcase";
 import EmptyCase from "../../components/archive/EmptyCase";
 
+// context
+import { useCategoryState } from "../../context/categoryState";
+
 export async function getStaticProps() {
   const categories = await getHeaderCatData();
   const books = await getAllBooks();
@@ -33,9 +36,25 @@ export async function getStaticProps() {
 
 const ACTIONS = {
   TOGGLE_CAT: "toggleCat",
-  INIT_CAT: "initCat",
   SET_CAT: "setCat",
   CLEAR_CAT: "clearCat",
+};
+
+const reducer = (cats, action) => {
+  switch (action.type) {
+    case ACTIONS.TOGGLE_CAT: {
+      const cat = action.payload.subCat;
+      return cats.includes(cat)
+        ? cats.filter((i) => i !== cat)
+        : [...cats, cat];
+    }
+    case ACTIONS.SET_CAT: // set specific subCat
+      return action.payload.subCat;
+    case ACTIONS.CLEAR_CAT: // clear cat filter
+      return [];
+    default:
+      return cats;
+  }
 };
 
 const Archive = ({ categories, books, categorizedBooks }) => {
@@ -49,29 +68,7 @@ const Archive = ({ categories, books, categorizedBooks }) => {
   const { x, y } = useMousePosition();
 
   const [showImg, setShowImg] = useState({});
-
-  const reducer = (cats, action) => {
-    switch (action.type) {
-      case ACTIONS.TOGGLE_CAT: {
-        const cat = action.payload.subCat;
-        return cats.includes(cat)
-          ? cats.filter((i) => i !== cat)
-          : [...cats, cat];
-      }
-      case ACTIONS.INIT_CAT: // all subCats
-        return categories
-          .filter(({ slug }) => slug === action.payload.cat)[0]
-          .children.map(({ slug }) => slug);
-      case ACTIONS.SET_CAT: // set specific subCat
-        return [action.payload.subCat];
-      case ACTIONS.CLEAR_CAT: // clear cat filter
-        return [];
-      default:
-        return cats;
-    }
-  };
-
-  const [cats, dispatchCats] = useReducer(reducer, []);
+  const [cats, dispatchCats] = useCategoryState();
 
   const onBookcaseScroll = (e) => {
     const container = bookcaseRef.current;
@@ -95,7 +92,7 @@ const Archive = ({ categories, books, categorizedBooks }) => {
 
   const getTheFilteredBooks = () => {
     let results = [];
-    cats.forEach((cat) => {
+    cats?.forEach((cat) => {
       const books = categorizedBooks[cat];
       if (books) {
         results = [...results, ...books];
@@ -114,7 +111,7 @@ const Archive = ({ categories, books, categorizedBooks }) => {
         <title>經典讀書會 | 文章列表</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Header categories={categories} dispatchCats={dispatchCats} />
+      <Header categories={categories} />
       <div className={styles.sortBy}>
         <DetailBar
           currentCats={cats}

@@ -23,6 +23,9 @@ import {
   getFormattedDate,
 } from "../../utils/contentUtils";
 
+// context
+import { useCategoryState } from "../../context/categoryState";
+
 export const getStaticPaths = async () => {
   const articles = await getAllArticles();
 
@@ -58,6 +61,8 @@ const Article = ({ headerData, article }) => {
   const cardRef = useRef(null);
   const cardButtonRef = useRef(null);
   const progressBarRef = useRef(null);
+
+  const [cats, dispatchCats] = useCategoryState();
 
   const toggleCardOpen = () => {
     setCardOpen(!isCardOpen);

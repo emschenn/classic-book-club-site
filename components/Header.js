@@ -3,6 +3,9 @@ import { useRouter } from "next/router";
 
 import styles from "../styles/Layout.module.scss";
 
+// context
+import { useCategoryState } from "../context/categoryState";
+
 const Earth = () => (
   <svg
     width="54"
@@ -69,7 +72,7 @@ const RightArrow = () => (
   </svg>
 );
 
-const Header = ({ categories, dispatchCats }) => {
+const Header = ({ categories }) => {
   const router = useRouter();
   const currentRoute = router.pathname;
   const [showChildCat, setShowChildCat] = useState({});
@@ -78,6 +81,7 @@ const Header = ({ categories, dispatchCats }) => {
     { route: "/articles", name: "épistémè" },
     { route: "/contact", name: "contact" },
   ];
+  const [cats, dispatchCats] = useCategoryState();
 
   return (
     <div className={styles.header}>
@@ -131,8 +135,8 @@ const Header = ({ categories, dispatchCats }) => {
                     }
                     onClick={() => {
                       dispatchCats({
-                        type: "initCat",
-                        payload: { cat: slug },
+                        type: "setCat",
+                        payload: children.map(({ slug }) => slug),
                       });
                       router.push(`/articles?cat=${slug}`);
                     }}
@@ -148,7 +152,7 @@ const Header = ({ categories, dispatchCats }) => {
                                 e.stopPropagation();
                                 dispatchCats({
                                   type: "setCat",
-                                  payload: { subCat: childSlug },
+                                  payload: [childSlug],
                                 });
                                 router.push(`/articles?cat=${slug}`);
                               }}

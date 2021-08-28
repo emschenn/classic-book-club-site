@@ -25,6 +25,7 @@ const Bookcase = ({
       <ul ref={bookcaseRef}>
         {books.map(({ name, slug, hasArticle }, index) => (
           <div
+            key={`book-${slug}`}
             className={`${styles.book} ${
               hasArticle ? styles.active : undefined
             }`}

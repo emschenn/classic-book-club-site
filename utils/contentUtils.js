@@ -39,8 +39,39 @@ export function getSubjectContent(categories) {
 }
 
 export function getProgressBarText(categories) {
-  const category = categories[0].fields.parent.fields.engName;
-  return category.split(" ");
+  if (categories.length === 1) {
+    return {
+      isCross: false,
+      data: categories[0].fields.parent.fields.engName.split(" "),
+    };
+  }
+  let parents = [];
+  categories.forEach(({ fields }) => {
+    parents = [...parents, fields.parent.fields.engName];
+  });
+  const parentsSet = new Set();
+  const result = parents.filter((parent) => {
+    const duplicate = parentsSet.has(parent);
+    parentsSet.add(parent);
+    return !duplicate;
+  });
+  if (result.length === 1) {
+    return {
+      isCross: false,
+      data: categories[0].fields.parent.fields.engName.split(" "),
+    };
+  }
+  return {
+    isCross: true,
+    data: result.map((r) => {
+      if (r === "Social sciences") return "Social";
+      else if (r === "Formal Sciences") return "Formal";
+      else if (r === "Natural Sciences") return "Natural";
+      else if (r === "Applied Sciences") return "Applied";
+      else if (r === "Human- ities") return "Humanities";
+      else return r;
+    }),
+  };
 }
 
 export function getFormattedDate(updateDate) {

@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import gsap from "gsap";
+import { gsap, CustomEase } from "gsap";
 import Head from "next/head";
 
 // styles
@@ -59,27 +59,33 @@ const Article = ({ headerData, article }) => {
   const cardButtonRef = useRef(null);
   const progressBarRef = useRef(null);
 
+  var tl = gsap.timeline({
+    repeat: 5,
+    repeatDelay: 5,
+    paused: true,
+    repeatRefresh: true,
+  });
+  tl.to(cardRef.current, {
+    x: 12,
+    ease: "Power2.easeOut",
+    duration: 0.5,
+  }).to(cardRef.current, {
+    x: 0,
+    ease: "Power2.easeOut",
+    duration: 1,
+  });
+
   const toggleCardOpen = () => {
     setCardOpen(!isCardOpen);
   };
 
-  useEffect(() => {
-    // if (isCardOpen === null) {
-    //   gsap.to(cardRef.current, 0.6, {
-    //     x: 10,
-    //     ease: "back.inOut(1.7)",
-    //     repeat: -1,
-    //     yoyo: true,
-    //   });
-    // }
-  }, []);
-
   const cardSliceAnimation = (isStart) => {
     const opacity = 0.32;
     const width = cardRef.current.offsetWidth;
-    gsap.to(cardRef.current, 2, {
+    gsap.to(cardRef.current, {
       x: isStart ? width - 70 : 0,
       ease: "power3.inOut",
+      duration: 1.5,
       background: `linear-gradient( 90deg, rgba(0, 0, 0, ${opacity}) 85%, rgba(0, 0, 0, ${
         isStart ? opacity : 0
       }) 100% )`,
@@ -87,15 +93,17 @@ const Article = ({ headerData, article }) => {
   };
 
   const cardSliceButtonAnimation = (isStart) => {
-    gsap.to(cardButtonRef.current, 1, {
-      delay: 0.5,
+    gsap.to(cardButtonRef.current, {
+      delay: 0.2,
+      duration: 1,
       rotation: isStart ? 180 : 0,
       ease: "power3.inOut",
     });
   };
 
   const progressBarAnimation = () => {
-    gsap.to(progressBarRef.current, 0.001, {
+    gsap.to(progressBarRef.current, {
+      duration: 0.01,
       ease: "power3.inOut",
       background: `linear-gradient(to top, #000000 ${progress}, #00000000 ${progress})`,
     });
@@ -113,6 +121,11 @@ const Article = ({ headerData, article }) => {
   }, [progress]);
 
   useEffect(() => {
+    if (isCardOpen === null) {
+      tl.play();
+      return;
+    }
+    tl.pause();
     if (isCardOpen) {
       cardSliceAnimation(true);
       cardSliceButtonAnimation(true);
@@ -128,11 +141,13 @@ const Article = ({ headerData, article }) => {
     content,
     difficulties,
     douban,
+    linksForBook,
     hashtag,
     mediumNote,
     podcastYoutube,
     podcastSpotify,
     slug,
+    thumbnail,
     title,
     updateDate,
     introduction,
@@ -150,7 +165,7 @@ const Article = ({ headerData, article }) => {
 
   const region = getRegionContent(rawRegion, country);
 
-  const progressBarText = getProgressBarText(categories);
+  const { isCross, data: progressBarText } = getProgressBarText(categories);
 
   return (
     <>
@@ -163,6 +178,7 @@ const Article = ({ headerData, article }) => {
         <section className={styles.category}>
           <ProgressBarTitle
             progressBarRef={progressBarRef}
+            isCross={isCross}
             firstLine={progressBarText[0]}
             secondLine={progressBarText[1]}
           />
@@ -183,15 +199,17 @@ const Article = ({ headerData, article }) => {
           </section>
           <section className={styles.book}>
             <BookCard
+              thumbnail={thumbnail}
               cardRef={cardRef}
               cardButtonRef={cardButtonRef}
               hashtag={hashtag}
               douban={douban}
+              linksForBook={linksForBook}
               introduction={introduction}
               toggleCardOpen={toggleCardOpen}
             />
           </section>
-          <section className={styles.share}>share</section>
+          <section className={styles.share}></section>
           <section className={styles.note}>
             <MeetingMinutes
               publisher={publisher}

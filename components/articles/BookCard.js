@@ -12,12 +12,15 @@ const BookCard = ({
   toggleCardOpen,
   cardButtonRef,
   douban,
+  thumbnail,
+  linksForBook,
 }) => {
   return (
     <>
       <div className={styles.img}>
         <Image
-          src="/test.png"
+          src={`https:${thumbnail.fields.file.url}`}
+          //thumbnail.fields.file.details.image.height
           alt="Picture of the author"
           layout="fill"
           className={styles.nextImg}
@@ -31,8 +34,7 @@ const BookCard = ({
             elit. Iusto voluptate nemo deleniti consequuntur veniam qui cumque
             magni. Illo, debitis ratione quasi quae odit laborum deserunt?
             Temporibus, laboriosam delectus repellat doloribus vitae facilis
-            enim magni rem aperiam illo sint! Necessitatibus inventore impedit
-            exercitationem? Eiuendus laudantium harum delectus dolorem!{" "}
+            enim magni rem aperiam illo sint! Necessitatibus inventore imp
           </div>
           <ul className={styles.hashtag}>
             {hashtag?.map((i) => (
@@ -40,13 +42,19 @@ const BookCard = ({
             ))}
           </ul>
 
-          {douban && (
+          {Object.keys(linksForBook).length !== 0 && (
             <ul className={styles.links}>
               <span>|</span>
-              <a href={douban} target="_blank">
-                <li>豆瓣</li>
-              </a>
-              <span>|</span>
+              {Object.keys(linksForBook).map(function (key, index) {
+                return (
+                  <>
+                    <a key={key} href={linksForBook[key]} target="_blank">
+                      <li>{key}</li>
+                    </a>
+                    <span>|</span>
+                  </>
+                );
+              })}
             </ul>
           )}
         </div>

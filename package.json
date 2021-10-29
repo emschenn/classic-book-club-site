@@ -10,7 +10,7 @@
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.0.0",
     "contentful": "^8.4.2",
-    "d3": "^7.0.1",
+    "d3": "^6.7.0",
     "d3-scale": "^4.0.0",
     "github-markdown-css": "^4.0.0",
     "gsap": "^3.7.1",

@@ -95,7 +95,7 @@ const Header = ({ categories }) => {
           LOGO
         </div>
         {routes.map(({ route, name }, index) => (
-          <>
+          <div key={name}>
             {index !== 0 && <span className={styles.navDivider}></span>}
             <li
               key={name}
@@ -116,7 +116,7 @@ const Header = ({ categories }) => {
             >
               {name}
             </li>
-          </>
+          </div>
         ))}
         {currentRoute.includes("/articles") && categories && (
           <div className={styles.category}>
